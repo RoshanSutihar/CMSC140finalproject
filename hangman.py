@@ -78,6 +78,7 @@ hangManint = 0
 
 #guess word picked randomly form the file
 
+# I will randomly choose this word from a excel sheet for final drat
 realWord = "HELICOPTER"
 hintRealWord = " A flying thing"
 
@@ -85,9 +86,12 @@ hintRealWord = " A flying thing"
 
 # prints out the initial part of the game
 print()
-print("Welcome to the hangman game")
+print("WELCOME TO HANGMAN GAME")
+print("Note*")
+print("You will be provided hints accross the game!")
+print("The higher difficulty level will give you lee no of chances!")
 
-
+print()
 # choosing the difficulty level
 print("Choose the level of difficulty (L, M, H): " , end='')
 userInput = input()
@@ -113,6 +117,14 @@ while (capdiffLevel!= "L" or capdiffLevel!="M" or capdiffLevel!="H"):
     
 # Game begins
 hangManint= guessNo
+print()
+print(f"Hint:{hintRealWord}")
+print()
+for alphabets in realWord:
+    print("_ ", end='')
+print()
+
+  
 while (guessNo>0):
    
     # Taking character input from user
@@ -138,15 +150,16 @@ while (guessNo>0):
                 else:
                     #right condition for game starts from here
                     if guessChar.upper() in realWord:
-                        
+                        print()
                         print(f"Correct! {guessChar} is the right guess!")
-                
+                        print()
                     else:
                         print(hangmanSkeleton[hangManint-guessNo])
+                        print()
                         guessNo -= 1
                         print(f"Wrong {guessChar} is the wrong guess. {guessNo} guess left!")
-                        print("Hint:", end="")
-                        print(hintRealWord)
+                        print(f"Hint:{hintRealWord}")
+                        print()
                     
             # will append the characters the user has guessed till now to the string
             letterGuessed = letterGuessed+ guessChar
@@ -155,7 +168,7 @@ while (guessNo>0):
                 if  alphabets in letterGuessed.upper() :
                     print(f"{alphabets}", end='')
                 else:
-                    print("_", end='')
+                    print("_ ", end='')
                     failureCount +=1
             print("")        
                         
