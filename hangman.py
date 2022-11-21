@@ -79,6 +79,46 @@ def diffLevel (diffvalue):
     capdiffLevel1 = diffLevel.upper()
     return capdiffLevel1
 
+
+    
+    # for x in realWord:
+    #     print("_ ", end='')
+    # print()
+
+
+
+# randomly getting the name and desc from the file
+#randomindex = random.randint(1, 9)
+
+
+randomindex =int(random.random()*10)
+print(randomindex)
+print( int(random.random()*10))
+
+gameWords = load_workbook('guesswords.xlsx')
+sheetName = gameWords.active
+rows  =sheetName.rows
+fileHeaders = [cell.value for cell in next(rows)]
+
+#guess word picked randomly form the file
+
+
+dummyList = []
+
+for row in rows:
+    excelData  = {}
+    for title, cell in zip(fileHeaders, row):
+        excelData[title] = cell.value
+
+    dummyList.append(excelData)
+
+
+print(dummyList)
+# I will randomly choose this word from a excel sheet for final drat
+realWord = str(dummyList[randomindex]['guessWord'])
+hintRealWord = str(dummyList[randomindex]['guessHint'])
+
+
 def gameStart():
     print()
     print("WELCOME TO HANGMAN GAME")
@@ -113,42 +153,7 @@ def gameStart():
             capdiffLevel = diffLevel(insidelevel)
         
       # Game begins
-    
-    print()
-    print(f"Word Hint:{hintRealWord}")
-    print()
-    
-    # for x in realWord:
-    #     print("_ ", end='')
-    # print()
 
-
-
-# randomly getting the name and desc from the file
-randomindex = random.randint(1, 9)
-
-gameWords = load_workbook('guesswords.xlsx')
-sheetName = gameWords.active
-rows  =sheetName.rows
-fileHeaders = [cell.value for cell in next(rows)]
-
-#guess word picked randomly form the file
-
-excelData  = {}
-dummyList = []
-
-for row in rows:
-    
-    for title, cell in zip(fileHeaders, row):
-        excelData[title] = cell.value
-
-    dummyList.append(excelData)
-
-
-
-# I will randomly choose this word from a excel sheet for final drat
-realWord = str(dummyList[randomindex]['guessWord'])
-hintRealWord = str(dummyList[randomindex]['guessHint'])
 
 guessNo = 0
 
@@ -163,13 +168,17 @@ for alphabets in realWord:
     if guessNo>0:
         if  alphabets not in letterGuessed.upper() :
             print("_ ", end='')
-print()
+
+print('')
+
+print(f"Word Hint:{hintRealWord}")
   
 while (guessNo>0):
-   
-    
+
+    failureCount = 0
     # Taking character input from user
-    print("Enter a guess:", end='') 
+    print()
+    print("Enter a guess: ", end='') 
     guessChar = input()
     
     # to check the length of input given by the user
@@ -208,15 +217,16 @@ while (guessNo>0):
                         if guessNo>0:
                             print(f"Wrong {guessChar} is the wrong guess. {guessNo} guess left!")
                             print(f"Word Hint:{hintRealWord}")
+                            
                             print()
                     
             # will append the characters the user has guessed till now to the string
             letterGuessed = letterGuessed+ guessChar.upper()
-            failureCount = 0
+            
             for alphabets in realWord:
                 if guessNo>0:
                     if  alphabets in letterGuessed.upper() :
-                        print(f"{alphabets}", end='')
+                        print(f"{alphabets} ", end='')
                     else:
                         print("_ ", end='')
                         failureCount +=1
@@ -225,10 +235,15 @@ while (guessNo>0):
                 
             if failureCount == 0:
                 print()
-                print("Congrats You have won the game")
+                print("Congrats!! You have won the game!!")
                 print()
                 break
-                       
+            elif failureCount>0:
+                print()
+                print("Congrats!! You have lost the game!!")
+                print()
+                break
+                     
         # len >0 else
         else:
             print("Error! Please enter a single character!")
