@@ -1,0 +1,5 @@
+Repo for the final project of the CMSC 140 class This project contains a CLI based Hangman game where it asks its user to guess a word of the english. the user can select the difficulty level on the program: the higher the difficulty level the less number of chhances the user gets. Each time a user makes a misktake it starts to build the skeleton of the man and if the user cannot guess the words in the number of guess provided the hangman skeleton complets and the user fails the game.
+
+this project uses openpyxl to read the excel file which is further used to randomly select a word from the excel file.
+
+How to run the project? -> For this project you will need the guesswords.xsls file which contains all the guess word and their hint -> The xsls file should be in the same folder as in the game. -> You have to install a module called openpyxl with thye command "pip install openpyxl"
